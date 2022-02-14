@@ -15,14 +15,11 @@ def write_state(state_name):
 def check_state_in_list(check_answer):
     if check_answer in correct_state:
         return True
-
     return False
 
 
 def append_missing_state():
-    for state in state_list:
-        if state not in correct_state:
-            missing_state.append(state)
+    return [state for state in state_list if state not in correct_state]
 
 
 def create_file():
@@ -51,7 +48,7 @@ for _ in range(50):
     answer = screen.textinput(title=f"{len(correct_state)}/{len(state_list)} States Correct", prompt="What's another state's name?")
 
     if not answer:
-        append_missing_state()
+        missing_state = append_missing_state()
         create_file()
         break
     else:
@@ -61,5 +58,5 @@ for _ in range(50):
             correct_state.append(answer)
 
 if len(missing_state) == 0:
-    append_missing_state()
+    missing_state = append_missing_state()
     create_file()
